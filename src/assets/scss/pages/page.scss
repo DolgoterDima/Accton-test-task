@@ -1,0 +1,9 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  &__content {
+  }
+  @include mobile {
+    padding: 10px;
+  }
+}

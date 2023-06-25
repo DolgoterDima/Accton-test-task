@@ -1,0 +1,78 @@
+.add-head {
+  $parent: &;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  &__button {
+    width: 30px;
+    border-radius: 50%;
+    height: 30px;
+    overflow: hidden;
+    color: $green;
+    transition: color 0$transitionTiming;
+    &:hover {
+      color: lighten($green, 20%);
+    }
+    &--active {
+      #{$parent} {
+        &__icon {
+          color: $red;
+          rotate: 45deg;
+          &:hover {
+            color: darken($red, 20%);
+          }
+        }
+      }
+    }
+  }
+  &__header {
+    display: flex;
+    gap: 20px;
+  }
+
+  &__head {
+  }
+
+  &__head-avatar {
+    height: 100%;
+  }
+
+  &__search {
+    width: 100%;
+  }
+
+  &__icon {
+    transition: rotate $transitionTiming, color $transitionTiming;
+    width: 100%;
+    height: 100%;
+  }
+  &__content {
+    border: 1px solid;
+  }
+
+  &__selected-users {
+    display: flex;
+    gap: 10px;
+    border-bottom: 1px solid;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+  }
+
+  &__founded-users {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-height: 300px;
+    overflow: auto;
+  }
+  &__item {
+    cursor: pointer;
+    transition: background-color $transitionTiming;
+    &:hover {
+      background-color: $gray;
+    }
+  }
+
+  &__head-name {
+  }
+}

@@ -1,0 +1,48 @@
+.ui-table {
+  overflow: auto;
+  $parent: &;
+  &__table {
+    width: 100%;
+    border: 1px solid;
+    text-align: center;
+    padding: 5px;
+    border-collapse: collapse;
+  }
+
+  &__thead {
+    border-bottom: 1px solid;
+  }
+
+  &__row {
+    border-bottom: 1px solid;
+  }
+
+  &__th {
+    padding: 5px;
+  }
+
+  &__tbody {
+    #{$parent} {
+      &__row {
+        &:nth-child(odd) {
+          background-color: $gray;
+        }
+      }
+    }
+  }
+  &__icon {
+    width: 25px;
+    color: $green;
+    transition: color 0$transitionTiming;
+    &:hover {
+      color: darken($green, 20%);
+    }
+  }
+
+  &__td {
+    padding: 5px;
+  }
+
+  &__cell {
+  }
+}

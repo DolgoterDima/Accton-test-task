@@ -1,54 +1,66 @@
 import { defineStore } from "pinia";
-import { collection, getDocs } from "firebase/firestore";
 
-import { db, addDoc, query, where } from "../services/firebase/index.js";
+import {
+  db,
+  addDoc,
+  doc,
+  getDoc,
+  query,
+  where,
+  getDocs,
+  collection,
+} from "../services/firebase/index.js";
 
 export const useUsersStore = defineStore({
   id: "users",
   state: () => ({
     users: [],
-    post: null,
-    loading: false,
-    error: "null11231",
+    totalUsersCount: null,
+    isLoading: false,
   }),
-  getters: {
-    getPostsPerAuthor: (state) => {
-      return (authorId) =>
-        state.posts.filter((post) => post.userId === authorId);
-    },
-  },
+  getters: {},
   actions: {
-    async fetchUsers(searchName = "") {
-      this.loading = true;
+    async getUsersCount() {
       try {
-        const querySnapshot = await getDocs(
-          query(
-            collection(db, "users"),
-            where("name", ">=", searchName),
-            where("name", "<=", `${searchName}\uf8ff`)
-          )
-        );
-        this.users = querySnapshot.docs.map((doc) => {
-          const data = doc.data();
-          const id = doc.id;
-          return { id, ...data };
-        });
+        const querySnapshot = await getDocs(collection(db, "users"));
+        this.totalUsersCount = querySnapshot.size;
       } catch (error) {
-        this.error = error;
-      } finally {
-        this.loading = false;
+        console.error(error);
       }
     },
-
-    async addUser(userData) {
-      this.loading = true;
+    async fetchUserByID(userID) {
       try {
-        const docRef = await addDoc(collection(db, "users"), userData);
-        console.log("Document written with ID: ", docRef.id);
+        const userDoc = await getDoc(doc(db, "users", userID));
+        return userDoc.exists() ? userDoc.data() : null;
       } catch (error) {
-        this.error = error;
+        console.error(error);
+        return null;
+      }
+    },
+    async fetchUsers(searchName = "") {
+      this.isLoading = true;
+
+      try {
+        const querySnapshot = await getDocs(
+          query(collection(db, "users"), where("name", ">=", searchName))
+        );
+        this.users = querySnapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+      } catch (error) {
+        console.error(error);
       } finally {
-        this.loading = false;
+        this.isLoading = false;
+      }
+    },
+    async addUser(userData) {
+      try {
+        await addDoc(collection(db, "users"), userData);
+        return true;
+      } catch (error) {
+        console.error(error);
+        return false;
       }
     },
   },

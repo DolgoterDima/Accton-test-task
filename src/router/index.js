@@ -1,20 +1,26 @@
 import { createRouter, createWebHistory } from "vue-router";
-import HelloWorld from "../components/HelloWorld.vue";
+
 const routes = [
   {
     path: "/create-user",
-    name: "CreateUser",
-    component: () => import("../pages/CreateUserPage.vue"),
+    name: "Create User",
+    component: () => import("../pages/CreateUser.vue"),
   },
   {
-    path: "/about",
-    name: "About",
-
-    component: () => import("../components/HelloWorld.vue"),
+    path: "/users",
+    name: "All Users",
+    component: () => import("../pages/AllUsers.vue"),
+  },
+  {
+    path: "/users/:id",
+    name: "User",
+    component: () => import("../pages/UserProfile.vue"),
   },
 ];
 const router = createRouter({
   history: createWebHistory(),
   routes,
+  linkActiveClass: "",
+  linkExactActiveClass: "nav__link--active",
 });
 export default router;

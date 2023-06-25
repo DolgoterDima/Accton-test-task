@@ -1,23 +1,20 @@
-<script setup>
-import HelloWorld from "./components/HelloWorld.vue";
-</script>
-
 <template>
-  <router-link to="create-user">create-user</router-link>
-  <router-view></router-view>
+  <div class="layout">
+    <header class="header layout__header">
+      <nav class="nav">
+        <router-link class="nav__link" to="/create-user"
+          >create user</router-link
+        >
+        <router-link class="nav__link" to="/users">all users</router-link>
+      </nav>
+    </header>
+
+    <router-view v-slot="{ Component }" class="layout__page">
+      <transition name="fade" mode="out-in">
+        <component :is="Component" />
+      </transition>
+    </router-view>
+  </div>
 </template>
 
-<style scoped>
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.vue:hover {
-  filter: drop-shadow(0 0 2em #42b883aa);
-}
-</style>
+<script setup></script>

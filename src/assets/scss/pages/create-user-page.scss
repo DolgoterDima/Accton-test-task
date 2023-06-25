@@ -1,0 +1,7 @@
+.create-user-page {
+  display: flex;
+  justify-content: center;
+  &__form {
+    width: clamp(200px, 400px, 100%);
+  }
+}
