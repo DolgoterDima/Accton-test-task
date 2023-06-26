@@ -32,9 +32,10 @@
 </template>
 
 <script setup>
-const NO_HEAD_TEXT = "no head";
+import { NO_USERS_HEAD_TEXT } from "@/helpers/constants.js";
+
 import { useRoute } from "vue-router";
-import { useUsersStore } from "../store/users.js";
+import { useUsersStore } from "@/store/users.js";
 import { onMounted, ref } from "vue";
 
 const { fetchUserByID } = useUsersStore();
@@ -44,14 +45,15 @@ const user = ref(null);
 const userID = useRoute().params.id;
 
 onMounted(async () => {
-  const fetchedUser = await fetchUserByID(userID);
+  /* get user and user head data in two queries, instead of getting all users */ const fetchedUser =
+    await fetchUserByID(userID);
   const fetchedHead = fetchedUser.head
     ? await fetchUserByID(fetchedUser.head)
     : null;
+
   user.value = {
     ...fetchedUser,
-    head: fetchedHead ? fetchedHead.name : NO_HEAD_TEXT,
+    head: fetchedHead ? fetchedHead.name : NO_USERS_HEAD_TEXT,
   };
 });
 </script>
-<style scoped></style>

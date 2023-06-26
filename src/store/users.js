@@ -11,6 +11,7 @@ import {
   collection,
 } from "../services/firebase/index.js";
 
+import { NO_USERS_HEAD_TEXT } from "@/helpers/constants.js";
 export const useUsersStore = defineStore({
   id: "users",
   state: () => ({
@@ -18,7 +19,13 @@ export const useUsersStore = defineStore({
     totalUsersCount: null,
     isLoading: false,
   }),
-  getters: {},
+  getters: {
+    getUsersHead: (state) => (user) => {
+      const usersHead = state.users.find((item) => item.id === user.head);
+      return usersHead ? usersHead.email : NO_USERS_HEAD_TEXT;
+    },
+  },
+
   actions: {
     async getUsersCount() {
       try {

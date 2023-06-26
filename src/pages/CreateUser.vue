@@ -78,19 +78,25 @@
     </main>
   </div>
 </template>
-<script setup>
-import * as yup from "yup";
-import { Field, Form } from "vee-validate";
-import { ref, onMounted, getCurrentInstance } from "vue";
-import { useUsersStore } from "../store/users.js";
-import { storeToRefs } from "pinia";
-import AddHead from "../components/AddHead.vue";
 
+<script setup>
+import { schema } from "@/helpers/validation.js";
+import { DEPARTMENTS_DICT } from "@/helpers/constants.js";
+import { Field, Form } from "vee-validate";
+import { ref, onMounted } from "vue";
+import AddHead from "@/components/AddHead.vue";
+
+import { useUsersStore } from "@/store/users.js";
+import { storeToRefs } from "pinia";
 const { totalUsersCount } = storeToRefs(useUsersStore());
 const { getUsersCount, addUser } = useUsersStore();
 
 const resetAddHeader = ref(false);
-const departmentsArray = ["sales", "smm", "development"];
+const departmentsArray = [
+  DEPARTMENTS_DICT.sales,
+  DEPARTMENTS_DICT.smm,
+  DEPARTMENTS_DICT.development,
+];
 
 const formUserData = ref({
   name: null,
@@ -100,19 +106,11 @@ const formUserData = ref({
   head: null,
 });
 
-const instance = getCurrentInstance();
-
 const resetForm = () => {
   isUserAdded.value = false;
-  resetAddHeader.value = !resetAddHeader.value;
+  resetAddHeader.value = !resetAddHeader.value; /* reset add head component */
   formUserData.value.head = null;
 };
-
-const schema = yup.object({
-  name: yup.string().required(),
-  email: yup.string().email().required(),
-  department: yup.string().required(),
-});
 
 const isUserAdded = ref(false);
 

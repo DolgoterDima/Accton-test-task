@@ -48,6 +48,7 @@
   }
   &__content {
     border: 1px solid;
+    padding: 5px;
   }
 
   &__selected-users {
@@ -58,7 +59,7 @@
     margin-bottom: 10px;
   }
 
-  &__founded-users {
+  &__found-users {
     display: flex;
     flex-direction: column;
     gap: 10px;
@@ -68,6 +69,9 @@
   &__item {
     cursor: pointer;
     transition: background-color $transitionTiming;
+    display: flex;
+    align-items: center;
+    gap: 5px;
     &:hover {
       background-color: $gray;
     }
