@@ -2,7 +2,7 @@ import { createPinia, setActivePinia } from "pinia";
 import { beforeEach, describe, expect, test } from "vitest";
 import { useUsersStore } from "@/store/users.js";
 
-describe("The counter store", () => {
+describe("The users store tests", () => {
   beforeEach(() => {
     setActivePinia(createPinia());
   });

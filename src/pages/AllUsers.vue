@@ -2,8 +2,8 @@
   <div class="users-page page">
     <h1 class="page__title">Users</h1>
     <main class="page__content">
-      <div v-if="users.length" class="ui-table">
-        <table class="ui-table__table">
+      <div class="ui-table">
+        <table v-if="users.length" class="ui-table__table">
           <thead class="ui-table__thead">
             <tr class="ui-table__row">
               <th class="ui-table__th">Avatar</th>
@@ -30,8 +30,9 @@
             </tr>
           </tbody>
         </table>
+
+        <span class="ui-table__no-users" v-else>users not found</span>
       </div>
-      <span v-else>users not found</span>
     </main>
   </div>
 </template>

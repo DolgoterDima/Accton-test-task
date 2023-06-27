@@ -2,8 +2,8 @@
   <div class="page profile">
     <h1 class="page__title">Profile</h1>
     <main class="page__content">
-      <div v-if="user" class="ui-table">
-        <table class="ui-table__table">
+      <div class="ui-table">
+        <table v-if="user" class="ui-table__table">
           <thead class="ui-table__thead">
             <tr class="ui-table__row">
               <th class="ui-table__th">ID</th>
@@ -26,6 +26,7 @@
             </tr>
           </tbody>
         </table>
+        <span class="ui-table__no-user" v-else>user not found</span>
       </div>
     </main>
   </div>
@@ -42,13 +43,13 @@ const { fetchUserByID } = useUsersStore();
 
 const user = ref(null);
 
-const userID = useRoute().params.id;
+const userID = useRoute()?.params?.id;
 
 onMounted(async () => {
-  /* get user and user head data in two queries, instead of getting all users */ const fetchedUser =
-    await fetchUserByID(userID);
-  const fetchedHead = fetchedUser.head
-    ? await fetchUserByID(fetchedUser.head)
+  /* get user and user head data in two queries, instead of getting all users */
+  const fetchedUser = await fetchUserByID(userID);
+  const fetchedHead = fetchedUser?.head
+    ? await fetchUserByID(fetchedUser?.head)
     : null;
 
   user.value = {
