@@ -1,9 +1,15 @@
 <template>
   <div class="users-page page">
-    <h1 class="page__title">Users</h1>
+    <h1 class="page__title">All Users</h1>
     <main class="page__content">
       <div class="ui-table">
-        <table v-if="users.length" class="ui-table__table">
+        <spinnerIcon v-if="isLoading" class="ui-spinner" />
+
+        <span class="ui-table__no-users" v-else-if="users.length === 0"
+          >users not found</span
+        >
+
+        <table v-else class="ui-table__table">
           <thead class="ui-table__thead">
             <tr class="ui-table__row">
               <th class="ui-table__th">Avatar</th>
@@ -17,7 +23,12 @@
           <tbody class="ui-table__tbody">
             <tr v-for="user in users" :key="user.id" class="ui-table__row">
               <td class="ui-table__td">
-                <img :src="user.avatar" :alt="user.name" />
+                <img
+                  :src="user.avatar"
+                  :alt="user.name"
+                  width="31"
+                  height="31"
+                />
               </td>
               <td class="ui-table__td">{{ user.name }}</td>
               <td class="ui-table__td">{{ user.email }}</td>
@@ -30,8 +41,6 @@
             </tr>
           </tbody>
         </table>
-
-        <span class="ui-table__no-users" v-else>users not found</span>
       </div>
     </main>
   </div>
@@ -42,9 +51,10 @@ import { storeToRefs } from "pinia";
 import { useUsersStore } from "@/store/users.js";
 import { onMounted } from "vue";
 
+import spinnerIcon from "@/assets/icons/spinner.svg";
 import eyeIcon from "@/assets/icons/eye.svg";
 
-const { users, getUsersHead } = storeToRefs(useUsersStore());
+const { users, getUsersHead, isLoading } = storeToRefs(useUsersStore());
 const { fetchUsers } = useUsersStore();
 
 onMounted(() => {

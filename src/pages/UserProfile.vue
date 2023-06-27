@@ -3,7 +3,11 @@
     <h1 class="page__title">Profile</h1>
     <main class="page__content">
       <div class="ui-table">
-        <table v-if="user" class="ui-table__table">
+        <spinnerIcon v-if="isLoading" class="ui-spinner" />
+
+        <span v-else-if="!user" class="ui-table__no-user">user not found</span>
+
+        <table v-else class="ui-table__table">
           <thead class="ui-table__thead">
             <tr class="ui-table__row">
               <th class="ui-table__th">ID</th>
@@ -26,7 +30,6 @@
             </tr>
           </tbody>
         </table>
-        <span class="ui-table__no-user" v-else>user not found</span>
       </div>
     </main>
   </div>
@@ -35,11 +38,15 @@
 <script setup>
 import { NO_USERS_HEAD_TEXT } from "@/helpers/constants.js";
 
+import spinnerIcon from "@/assets/icons/spinner.svg";
+
 import { useRoute } from "vue-router";
 import { useUsersStore } from "@/store/users.js";
 import { onMounted, ref } from "vue";
+import { storeToRefs } from "pinia";
 
 const { fetchUserByID } = useUsersStore();
+const { isLoading } = storeToRefs(useUsersStore());
 
 const user = ref(null);
 

@@ -5,6 +5,8 @@
         <img
           :src="selectedHead.avatar"
           :alt="selectedHead.name"
+          width="31"
+          height="31"
           class="add-head__head-avatar"
         />
       </div>
@@ -27,12 +29,12 @@
         @input="searchByUsersNames"
       />
       <span class="add-head__search-hint">
-        search is case sensitive. Search starts when you type more then
-        {{ MIN_CHARACTERS_TO_START_SEARCH }} chars. Type "Joh..."
+        search is case-sensitive. The search starts when you enter more than
+        {{ MIN_CHARACTERS_TO_START_SEARCH }} characters. Type "Joh..."
       </span>
     </label>
 
-    <!--   instead of @input we can use computable set and get, but this seems overloaded  -->
+    <!--   instead of @input we can use computed set and get, but this seems overloaded  -->
 
     <div
       class="add-head__content"
@@ -53,6 +55,8 @@
               :src="user.avatar"
               :alt="user.name"
               class="add-head__head-avatar"
+              width="31"
+              height="31"
             />
           </button>
         </div>
@@ -78,6 +82,8 @@
             <img
               :src="user.avatar"
               :alt="user.name"
+              width="31"
+              height="31"
               class="add-head__head-avatar"
             />
             <span class="add-head__head-name">{{ user.name }}</span>

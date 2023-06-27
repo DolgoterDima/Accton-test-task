@@ -28,20 +28,26 @@ export const useUsersStore = defineStore({
 
   actions: {
     async getUsersCount() {
+      this.isLoading = true;
       try {
         const querySnapshot = await getDocs(collection(db, "users"));
         this.totalUsersCount = querySnapshot.size;
       } catch (error) {
         console.error(error);
+      } finally {
+        this.isLoading = false;
       }
     },
     async fetchUserByID(userID) {
+      this.isLoading = true;
       try {
         const userDoc = await getDoc(doc(db, "users", userID));
         return userDoc.exists() ? userDoc.data() : null;
       } catch (error) {
         console.error(error);
         return null;
+      } finally {
+        this.isLoading = false;
       }
     },
     async fetchUsers(searchName = "") {
@@ -62,12 +68,15 @@ export const useUsersStore = defineStore({
       }
     },
     async addUser(userData) {
+      this.isLoading = true;
       try {
         await addDoc(collection(db, "users"), userData);
         return true;
       } catch (error) {
         console.error(error);
         return false;
+      } finally {
+        this.isLoading = false;
       }
     },
   },
