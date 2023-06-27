@@ -5,6 +5,7 @@ import svgLoader from "vite-svg-loader";
 import { fileURLToPath, URL } from "node:url";
 
 export default defineConfig({
+  base: "/Accton-test-task/",
   plugins: [vue(), svgLoader()],
   test: {
     environment: "happy-dom",
