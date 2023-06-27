@@ -8,6 +8,7 @@
             <tr class="ui-table__row">
               <th class="ui-table__th">Avatar</th>
               <th class="ui-table__th">Name</th>
+
               <th class="ui-table__th">Email</th>
               <th class="ui-table__th">Head</th>
               <th class="ui-table__th">Show more</th>
@@ -30,6 +31,7 @@
           </tbody>
         </table>
       </div>
+      <span v-else>users not found</span>
     </main>
   </div>
 </template>

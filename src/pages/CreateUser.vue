@@ -1,5 +1,5 @@
 <template>
-  <div class="create-user-page page">
+  <div class="create-user-page page" id="page">
     <h1 class="page__title">Create user</h1>
     <main class="page__content">
       <Form
